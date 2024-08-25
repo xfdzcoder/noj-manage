@@ -1,14 +1,14 @@
 <template>
-  <router-view />
+  <div>
+    <h1>Dashboard</h1>
+  </div>
 </template>
-
 
 <script setup>
 defineOptions({
-  name: 'App'
+  name: 'Dashboard'
 })
 </script>
-
 
 <style scoped>
 

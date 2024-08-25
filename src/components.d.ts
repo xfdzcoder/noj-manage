@@ -7,7 +7,22 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AsideMenu: typeof import('./components/Layout/components/AsideMenu.vue')['default']
+    BasicForm: typeof import('./components/BasicManageView/components/BasicForm.vue')['default']
+    BasicManageView: typeof import('./components/BasicManageView/index.vue')['default']
+    BasicTable: typeof import('./components/BasicManageView/components/BasicTable.vue')['default']
+    ElAside: typeof import('element-plus/es')['ElAside']
+    ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElMain: typeof import('element-plus/es')['ElMain']
+    ElMenu: typeof import('element-plus/es')['ElMenu']
+    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
+    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    Inde: typeof import('./components/BasicManageView/inde.vue')['default']
+    Layout: typeof import('./components/Layout/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

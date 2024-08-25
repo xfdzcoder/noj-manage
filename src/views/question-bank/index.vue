@@ -1,14 +1,14 @@
 <template>
-  <router-view />
+  <div>
+    <h1>题库管理</h1>
+  </div>
 </template>
-
 
 <script setup>
 defineOptions({
-  name: 'App'
+  name: 'QuestionBank'
 })
 </script>
-
 
 <style scoped>
 
