@@ -19,7 +19,7 @@
         :page-size="page.size"
         :default-page-size="props.pageSizes[0]"
         :total="page.total"
-        pager-count="5"
+        :pager-count="5"
         :current-page="page.current"
         :popper-class="props.pagePopperClass"
         :disabled="props.pageDisabled"
@@ -36,9 +36,14 @@
       :title="dialog.title"
       :width="props.dialogWidth"
     >
-      <slot :form="dialog.form"
+      <slot name="dialog-form"
+            :form="dialog.form"
+
+      >
+      </slot>
+      <slot name="dialog-footer"
             :submit="dialog.submit"
-            name="dialog"
+            :cancel="dialog.cancel"
       />
     </el-dialog>
   </div>
@@ -90,7 +95,7 @@ const props = defineProps({
   pageSizes: {
     type: Array,
     default(rawProps) {
-      return [10, 20, 30, 40, 50]
+      return [ 10, 20, 30, 40, 50 ]
     }
   },
   pagePopperClass: String,
@@ -120,7 +125,7 @@ const table = ref({
   },
   showEdit: (item) => {
     dialog.value.show(FormType.EDIT, item)
-  },
+  }
 })
 const dialog = ref({
   mode: '',
@@ -191,6 +196,9 @@ const dialog = ref({
           }
         })
     }
+  },
+  cancel: () => {
+    // TODO 2024/8/26 20:06 on dev-xfdzcoder:
   }
 })
 const page = ref({
@@ -266,11 +274,13 @@ const init = () => {
   const condition = {
     current: 1,
     size: props.pageSizes[0],
-    ...props.initCondition,
+    ...props.initCondition
   }
   doList(condition)
     .then(res => {
-      table.value.dataList = res.data
+      const resPage = res.data
+      table.value.data = resPage.records
+      page.value.total = resPage.total
     })
 }
 
