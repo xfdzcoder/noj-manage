@@ -204,7 +204,7 @@ const dialog = ref({
     }
   },
   cancel: () => {
-    // TODO 2024/8/26 20:06 on dev-xfdzcoder:
+    dialog.value.handleClose()
   }
 })
 const page = ref({
