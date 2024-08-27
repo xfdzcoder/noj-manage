@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
 // ElementPlus
 import ElementPlus from 'element-plus'
@@ -11,6 +10,9 @@ import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
 // Router
 import router from '@/router/index.js'
+
+// 最后导入
+import './style.css'
 
 const app = createApp(App)
 

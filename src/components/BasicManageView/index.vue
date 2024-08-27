@@ -41,10 +41,16 @@
 
       >
       </slot>
-      <slot name="dialog-footer"
-            :submit="dialog.submit"
-            :cancel="dialog.cancel"
-      />
+      <div class="dialog-footer">
+        <slot name="dialog-footer"
+              :submit="dialog.submit"
+              :cancel="dialog.cancel"
+        >
+          <el-button type="primary" @click="dialog.submit()">OK</el-button>
+          <el-button @click="dialog.cancel()">Cancel</el-button>
+        </slot>
+      </div>
+
     </el-dialog>
   </div>
 </template>
@@ -299,5 +305,25 @@ defineExpose({
 </script>
 
 <style scoped>
+:deep(.el-dialog__title) {
+  color: #ffffff;
+}
 
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.dialog-footer .el-button {
+  width: 80px;
+  font-family: "Microsoft YaHei", serif;
+}
+:deep(.dialog-footer .el-button:first-child) {
+  --el-button-bg-color: #3574f0;
+  font-weight: bold;
+}
+:deep(.dialog-footer .el-button:last-child) {
+  --el-button-bg-color: none;
+  --el-button-border-color: var(--noj-border-color);
+  --el-button-text-color: #ffffff;
+}
 </style>

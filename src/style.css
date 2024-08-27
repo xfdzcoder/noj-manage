@@ -1,8 +1,19 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #F1F1F1;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+    --noj-main-bg-color: #1e1f22;
+    --noj-dialog-bg-color: #2b2d30;
+    --noj-border-color: #4e5157;
+    --noj-border: 1px solid var(--noj-border-color);
+    --noj-primary-color: #3574f0;
 }
+
 #app {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
 }
