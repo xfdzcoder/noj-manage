@@ -13,14 +13,17 @@
           <span>{{ route.meta?.title ?? route.path }}</span>
         </template>
         <template #default>
-          <el-menu-item v-for="childRoute in route.children"
-                        :index="childRoute.path"
-          >
-            <el-icon></el-icon>
-            <template #title>
-              {{ childRoute.meta?.title ?? childRoute.path }}
-            </template>
-          </el-menu-item>
+          <template v-for="childRoute in route.children">
+            <el-menu-item v-if="childRoute.meta.visible !== false"
+                          :index="childRoute.path"
+            >
+              {{ childRoute.meta.visible }}
+              <el-icon></el-icon>
+              <template #title>
+                {{ childRoute.meta?.title ?? childRoute.path }}
+              </template>
+            </el-menu-item>
+          </template>
         </template>
       </el-sub-menu>
       <el-menu-item v-else
@@ -59,7 +62,8 @@ onMounted(_ => {
   --el-menu-hover-bg-color: none;
   border: none;
 }
+
 .menu .el-menu-item.is-active {
-  background-color: #1e1f22!important;
+  background-color: #1e1f22 !important;
 }
 </style>

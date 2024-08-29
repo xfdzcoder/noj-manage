@@ -15,7 +15,12 @@
             :save="save"
             :edit="edit"
             :del="del"
-          />
+            :width="'200'"
+          >
+            <template #before-default="{ scope }">
+              <el-button @click="toQuestionInfoView(scope)">查看题目</el-button>
+            </template>
+          </BasicOperateColumn>
         </el-table>
       </template>
       <template #dialog-form="{form}">
@@ -46,6 +51,8 @@
 
 <script setup>
 import { baseUri } from '@/api/question/bank.js'
+import { useRouter } from 'vue-router'
+import { useQuestionBankStore } from '@/store/questionBank.js'
 
 defineOptions({
   name: 'QuestionBank'
@@ -56,6 +63,16 @@ definePage({
     name: 'QuestionBank'
   },
 })
+
+const router = useRouter()
+const { changeBank } = useQuestionBankStore()
+
+const toQuestionInfoView = (scope) => {
+  changeBank(scope.row)
+  router.push({
+    name: 'QuestionInfo'
+  })
+}
 
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <el-table-column label="操作" width="180">
+  <el-table-column label="操作" :width="props.width">
     <template #header>
       <el-button @click="props.save()" text style="color: #57965c">
         <svg t="1724755666773" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -12,6 +12,7 @@
       </el-button>
     </template>
     <template #default="scope">
+      <slot name="before-default" :scope="scope" />
       <el-button @click="props.edit(scope.row)" text circle>
         <svg t="1724755516117" class="icon" viewBox="0 0 1024 1024" version="1.1"
              xmlns="http://www.w3.org/2000/svg" p-id="8439" id="mx_n_1724755516118" width="16" height="16">
@@ -41,6 +42,7 @@
           </el-button>
         </template>
       </el-popconfirm>
+      <slot name="after-default" :scope="scope.row"  />
     </template>
   </el-table-column>
 </template>
@@ -62,7 +64,8 @@ const props = defineProps({
   del: {
     type: Function,
     required: true
-  }
+  },
+  width: [String, Number]
 })
 
 </script>

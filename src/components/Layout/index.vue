@@ -2,7 +2,8 @@
   <el-container class="page">
     <el-header class="header">
       <div class="title">
-        <h1>NOJ——AI智能刷题社群群主管理平台</h1>
+        <h1>NOJ——AI智能刷题社群群主管理平台&ensp;|&ensp;</h1>
+        <h2>{{ $route.meta.title }}</h2>
       </div>
     </el-header>
     <el-container>
@@ -38,7 +39,7 @@ defineOptions({
 .title {
   /* global 94%+ browsers support */
   height: 100%;
-  width: 417px;
+  width: 600px;
   display: flex;
   align-items: center;
   background: radial-gradient(circle, #18759b 0%,#3C3F41 100%);

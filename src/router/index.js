@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/components/Layout/index.vue'
 import { useUserInfoStore } from '@/store/userInfo.js'
 import { ElMessage } from 'element-plus'
@@ -48,7 +48,7 @@ const total = [
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes: total,
 })
 

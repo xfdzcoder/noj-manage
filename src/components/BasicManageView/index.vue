@@ -109,7 +109,6 @@ const props = defineProps({
   pagePopperClass: String,
   pageDisabled: Boolean,
   initCondition: Object,
-  condition: Object
 })
 
 

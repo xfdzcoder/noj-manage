@@ -4,11 +4,18 @@
                      :before-save="beforeSave"
                      :before-edit="beforeEdit"
                      :after-list="afterList"
+                     :init-condition="{bankId: currentBank.id}"
     >
+      <template #header="{list}">
+        <div class="bank-title">
+          题库：{{ currentBank.name }}
+          <hr>
+        </div>
+      </template>
       <template #table="{data, save, edit, del}">
         <!-- Question Info Table -->
         <el-table :data="data" stripe style="width: 100%">
-          <el-table-column prop="questionType" label="题目类型 ID">
+          <el-table-column prop="questionType" label="题目类型">
             <template #default="scope">
               {{ viewData.questionType(scope.row.questionType) }}
             </template>
@@ -32,8 +39,26 @@
           <el-table-column prop="submitCount" label="提交次数" />
           <el-table-column prop="commentCount" label="评论数量" />
           <el-table-column prop="sort" label="排序" />
-          <el-table-column prop="timeout" label="时间限制 (毫秒)" />
-          <el-table-column prop="memory" label="内存限制 (byte)" />
+          <el-table-column prop="timeout" label="时间限制 (ms)">
+            <template #default="scope">
+              <template v-if="viewData.isCodeQuestion(scope.row.questionType)">
+                {{ scope.row.timeout }}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </template>
+          </el-table-column>
+          <el-table-column prop="memory" label="内存限制 (byte)">
+            <template #default="scope">
+              <template v-if="viewData.isCodeQuestion(scope.row.questionType)">
+                {{ scope.row.memory }}
+              </template>
+              <template v-else>
+                -
+              </template>
+            </template>
+          </el-table-column>
           <BasicOperateColumn
             :save="save"
             :edit="edit"
@@ -112,6 +137,8 @@
 
 <script setup>
 import { baseUri } from '@/api/question/info.js'
+import { storeToRefs } from 'pinia'
+import { useQuestionBankStore } from '@/store/questionBank.js'
 
 defineOptions({
   name: 'QuestionInfo'
@@ -119,36 +146,56 @@ defineOptions({
 definePage({
   meta: {
     title: '题目管理',
-    name: 'QuestionInfo'
+    name: 'QuestionInfo',
+    visible: false
   }
 })
 
+const { currentBank } = storeToRefs(useQuestionBankStore())
 
 const viewData = ref({
   questionType: (questionType) => {
     switch (questionType) {
-      case 0: return '单选题'
-      case 1: return '多选题'
-      case 2: return '填空题'
-      case 3: return '主观题'
-      default: return '未知'
+      case 0:
+        return '单选题'
+      case 1:
+        return '多选题'
+      case 2:
+        return '填空题'
+      case 3:
+        return '主观题'
+      case 4:
+        return '编程题'
+      default:
+        return '未知'
     }
   },
   difficultyType: (difficulty) => {
     switch (difficulty) {
-      case 0: return 'success'
-      case 1: return 'primary'
-      case 2: return 'danger'
-      default: return 'info'
+      case 0:
+        return 'success'
+      case 1:
+        return 'primary'
+      case 2:
+        return 'danger'
+      default:
+        return 'info'
     }
   },
   difficulty: (difficulty) => {
     switch (difficulty) {
-      case 0: return '简单'
-      case 1: return '中等'
-      case 2: return '困难'
-      default: return '未知'
+      case 0:
+        return '简单'
+      case 1:
+        return '中等'
+      case 2:
+        return '困难'
+      default:
+        return '未知'
     }
+  },
+  isCodeQuestion: (questionType) => {
+    return questionType === 4
   }
 })
 
@@ -160,6 +207,7 @@ const afterList = (respPage) => {
   return respPage
 }
 const beforeSave = (item) => {
+  item.questionBankId = currentBank.value.id
   item.tags = item.tags.join(',')
   return true
 }
@@ -167,8 +215,25 @@ const beforeEdit = (item) => {
   item.tags = item.tags.join(',')
   return true
 }
+
+// onBeforeMount(_ => {
+onMounted(_ => {
+
+  // console.log('route.params.bank', route.params.bank)
+  // if (!route.params.bank) {
+  //   router.replace({ name: 'QuestionBank' })
+  //   ElMessage.warning('请先选中题库')
+  //   return
+  // }
+  // currentBank.value = JSON.parse(decodeURIComponent(route.params.bank))
+})
 </script>
 
 <style scoped>
-
+.bank-title {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-family: "Microsoft YaHei UI", serif;
+  font-weight: bold;
+}
 </style>
