@@ -4,11 +4,11 @@
                      :before-save="beforeSave"
                      :before-edit="beforeEdit"
                      :after-list="afterList"
-                     :init-condition="{bankId: currentBank.id}"
+                     :init-condition="{bankId: currentBank?.id}"
     >
       <template #header="{list}">
         <div class="bank-title">
-          题库：{{ currentBank.name }}
+          题库：{{ currentBank?.name }}
           <hr>
         </div>
       </template>
@@ -139,6 +139,8 @@
 import { baseUri } from '@/api/question/info.js'
 import { storeToRefs } from 'pinia'
 import { useQuestionBankStore } from '@/store/questionBank.js'
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 
 defineOptions({
   name: 'QuestionInfo'
@@ -147,10 +149,11 @@ definePage({
   meta: {
     title: '题目管理',
     name: 'QuestionInfo',
-    visible: false
+    // visible: false
   }
 })
 
+const router = useRouter()
 const { currentBank } = storeToRefs(useQuestionBankStore())
 
 const viewData = ref({
@@ -218,7 +221,10 @@ const beforeEdit = (item) => {
 
 // onBeforeMount(_ => {
 onMounted(_ => {
-
+  if (!currentBank.value) {
+    ElMessage.warning('请先选择题库')
+    router.replace({ name: 'QuestionBank' })
+  }
   // console.log('route.params.bank', route.params.bank)
   // if (!route.params.bank) {
   //   router.replace({ name: 'QuestionBank' })

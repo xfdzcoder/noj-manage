@@ -58,7 +58,7 @@ const whiteList = [
 ]
 router.beforeEach((to, from) => {
   if (to.meta?.title) {
-    document.title = to.meta.title
+    document.title = `NOJ | ${to.meta.title}`
   }
   const { isLogin } = useUserInfoStore()
   if (isLogin()) {

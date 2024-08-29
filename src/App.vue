@@ -61,6 +61,26 @@ defineOptions({
   color: #FFFFFF;
 }
 
+:deep(.el-select) {
+  --el-select-border-color-hover: var(--noj-border-color);
+  --el-select-input-color: var(--noj-border-color);
+  --el-fill-color-blank: var(--noj-dialog-bg-color);
+  --el-input-border-color: var(--noj-border-color);
+  --el-border-color: var(--noj-border-color);
+}
+:global(.el-select-dropdown__item.is-hovering) {
+  --el-fill-color-light: var(--noj-primary-color);
+}
+:global(.el-select-dropdown__item) {
+  --el-text-color-regular: #ffffff;
+}
+:global(.el-select__popper.el-popper) {
+  --el-bg-color-overlay: var(--noj-dialog-bg-color);
+}
+:global(.el-select__placeholder) {
+  --el-input-text-color: #ffffff;
+}
+
 :global(.el-popover.el-popper) {
   --el-popover-bg-color: var(--noj-dialog-bg-color);
   --el-popover-border-color: var(--noj-dialog-bg-color);

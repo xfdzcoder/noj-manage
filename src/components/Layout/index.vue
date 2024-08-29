@@ -3,7 +3,7 @@
     <el-header class="header">
       <div class="title">
         <h1>NOJ——AI智能刷题社群群主管理平台&ensp;|&ensp;</h1>
-        <h2>{{ $route.meta.title }}</h2>
+        <h3>{{ $route.meta.title }}</h3>
       </div>
     </el-header>
     <el-container>
@@ -43,6 +43,10 @@ defineOptions({
   display: flex;
   align-items: center;
   background: radial-gradient(circle, #18759b 0%,#3C3F41 100%);
+}
+.title h3 {
+  margin: 0 0 15px 0;
+  align-self: flex-end;
 }
 
 .aside{

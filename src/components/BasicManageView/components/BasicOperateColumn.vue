@@ -1,5 +1,5 @@
 <template>
-  <el-table-column label="操作" :width="props.width">
+  <el-table-column label="操作" :width="props.width" fixed="right" align="center">
     <template #header>
       <el-button @click="props.save()" text style="color: #57965c">
         <svg t="1724755666773" class="icon" viewBox="0 0 1024 1024" version="1.1"

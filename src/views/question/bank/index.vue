@@ -15,10 +15,16 @@
             :save="save"
             :edit="edit"
             :del="del"
-            :width="'200'"
+            :width="'220'"
           >
             <template #before-default="{ scope }">
-              <el-button @click="toQuestionInfoView(scope)">查看题目</el-button>
+              <el-button class="show-question-btn"
+                         text
+                         :icon="Tickets"
+                         @click="toQuestionInfoView(scope)"
+              >
+                查看题目
+              </el-button>
             </template>
           </BasicOperateColumn>
         </el-table>
@@ -53,6 +59,7 @@
 import { baseUri } from '@/api/question/bank.js'
 import { useRouter } from 'vue-router'
 import { useQuestionBankStore } from '@/store/questionBank.js'
+import { Tickets } from '@element-plus/icons-vue'
 
 defineOptions({
   name: 'QuestionBank'
@@ -77,5 +84,7 @@ const toQuestionInfoView = (scope) => {
 </script>
 
 <style scoped>
-
+.show-question-btn {
+  color: #FFFFFF;
+}
 </style>
