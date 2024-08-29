@@ -10,6 +10,7 @@ declare module 'vue' {
     AsideMenu: typeof import('./components/Layout/components/AsideMenu.vue')['default']
     BasicForm: typeof import('./components/BasicManageView/components/BasicForm.vue')['default']
     BasicManageView: typeof import('./components/BasicManageView/index.vue')['default']
+    BasicOperateColumn: typeof import('./components/BasicManageView/components/BasicOperateColumn.vue')['default']
     BasicTable: typeof import('./components/BasicManageView/components/BasicTable.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']

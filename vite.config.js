@@ -4,6 +4,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import VueRouter from 'unplugin-vue-router/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'node:path'
 
@@ -12,6 +13,21 @@ const pathSrc = path.resolve(__dirname, 'src')
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    VueRouter({
+      extensions: ['.vue'],
+      routesFolder: [
+        'src/views'
+      ],
+      exclude: [
+        'src/views/portal/**'
+      ],
+      extendRoute(route) {
+        if (route.node.value.overrides?.meta?.remove) {
+          route.parent.addToMeta(route.node.value.overrides.meta)
+          route.delete()
+        }
+      }
+    }),
     vue(),
     AutoImport({
       // Auto import functions from Vue, e.g. ref, reactive, toRef...

@@ -1,14 +1,42 @@
 <template>
   <el-menu
-    default-active="/dashboard/index"
+    :default-active="currentPath"
     class="menu"
     router
   >
-    <el-menu-item index="/dashboard/index">
+    <template v-for="(route, index) in flatRoute">
+      <el-sub-menu v-if="route.children"
+                   :index="route.path"
+      >
+        <template #title>
+          <el-icon></el-icon>
+          <span>{{ route.meta?.title ?? route.path }}</span>
+        </template>
+        <template #default>
+          <el-menu-item v-for="childRoute in route.children"
+                        :index="childRoute.path"
+          >
+            <el-icon></el-icon>
+            <template #title>
+              {{ childRoute.meta?.title ?? childRoute.path }}
+            </template>
+          </el-menu-item>
+        </template>
+      </el-sub-menu>
+      <el-menu-item v-else
+                    :index="route.path"
+      >
+        <el-icon></el-icon>
+        <template #title>
+          {{ route.meta?.title ?? route.path }}
+        </template>
+      </el-menu-item>
+    </template>
+    <el-menu-item index="/dashboard">
       <el-icon></el-icon>
       <template #title>首页</template>
     </el-menu-item>
-    <el-menu-item index="/question/bank/index">
+    <el-menu-item index="/question/bank">
       <el-icon></el-icon>
       <template #title>题库管理</template>
     </el-menu-item>
@@ -16,8 +44,19 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+
 defineOptions({
   name: 'AsideMenu'
+})
+
+const router = useRouter()
+
+const currentPath = ref('/dashboard')
+const flatRoute = ref([])
+
+onMounted(_ => {
+  flatRoute.value = router.getRoutes().filter(r => r.path === '/').pop().children
 })
 </script>
 

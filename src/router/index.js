@@ -2,55 +2,54 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import Layout from '@/components/Layout/index.vue'
 import { useUserInfoStore } from '@/store/userInfo.js'
 import { ElMessage } from 'element-plus'
+import { routes } from 'vue-router/auto-routes'
 
-const routes = [
+console.dir(routes)
+const flatRoute = []
+
+const processRoute = (route) => {
+  if (route.component) {
+    console.log(route)
+    route.path = route.name
+    // console.log(route.component())
+    route.name = route.meta.name
+    delete route.meta.name
+    return route
+  }
+  if (route.children.length === 1) {
+    return processRoute(route.children[0])
+  }
+  const children = route.children;
+  for (let i = 0; i < children.length; i++) {
+    children[i] = processRoute(children[i])
+  }
+  return route
+}
+for (const route of routes) {
+  flatRoute.push(processRoute(route))
+}
+console.log(flatRoute)
+
+const total = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/login/index.vue'),
+    component: () => import('@/views/portal/login/index.vue'),
     meta: {
       title: '登录'
     }
   },
   {
     path: '/',
-    redirect: '/dashboard'
-  },
-  {
-    path: '/dashboard',
     component: Layout,
-    redirect: '/dashboard/index',
-    children: [
-      {
-        name: 'Dashboard',
-        path: 'index',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: {
-          title: '首页'
-        }
-      }
-    ]
-  },
-  {
-    path: '/question',
-    component: Layout,
-    redirect: '/question/bank/index',
-    children: [
-      {
-        name: 'QuestionBank',
-        path: 'bank/index',
-        component: () => import('@/views/question-bank/index.vue'),
-        meta: {
-          title: '题库管理'
-        }
-      }
-    ]
+    redirect: '/dashboard',
+    children: flatRoute
   }
 ]
 
 const router = createRouter({
   history: createMemoryHistory(),
-  routes,
+  routes: total,
 })
 
 const whiteList = [
@@ -75,3 +74,37 @@ router.beforeEach((to, from) => {
 })
 
 export default router
+
+/*
+,
+  {
+    path: '/dashboard',
+    component: Layout,
+    redirect: '/dashboard/index',
+    children: [
+      {
+        name: 'Dashboard',
+        path: 'index',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: {
+          title: '首页'
+        }
+      }
+    ]
+  },
+  {
+    path: '/question',
+    component: Layout,
+    redirect: '/question/bank/index',
+    children: [
+      {
+        name: 'QuestionBank',
+        path: 'bank/index',
+        component: () => import('@/views/question/bank/index.vue'),
+        meta: {
+          title: '题库管理'
+        }
+      }
+    ]
+  }
+ */

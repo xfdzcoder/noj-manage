@@ -5,6 +5,13 @@
 </template>
 
 <script setup>
+definePage({
+  path: '/index',
+  meta: {
+    title: '首页',
+    name: 'Dashboard'
+  }
+})
 defineOptions({
   name: 'Dashboard'
 })
