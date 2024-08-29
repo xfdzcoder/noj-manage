@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    :default-active="currentPath"
+    :default-active="$route.path + '/'"
     class="menu"
     router
   >
@@ -32,14 +32,6 @@
         </template>
       </el-menu-item>
     </template>
-    <el-menu-item index="/dashboard">
-      <el-icon></el-icon>
-      <template #title>首页</template>
-    </el-menu-item>
-    <el-menu-item index="/question/bank">
-      <el-icon></el-icon>
-      <template #title>题库管理</template>
-    </el-menu-item>
   </el-menu>
 </template>
 
@@ -52,7 +44,6 @@ defineOptions({
 
 const router = useRouter()
 
-const currentPath = ref('/dashboard')
 const flatRoute = ref([])
 
 onMounted(_ => {

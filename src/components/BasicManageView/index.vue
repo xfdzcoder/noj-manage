@@ -58,6 +58,7 @@
 <script setup>
 import { delById, edit, list, save } from '@/components/BasicManageView/utils/api.js'
 import { ElMessage } from 'element-plus'
+import { FormType } from '@/components/BasicManageView/utils/util.js'
 
 defineOptions({
   name: 'BasicManageView'
@@ -93,6 +94,7 @@ const props = defineProps({
   afterDel: Function,
   afterClose: Function,
   afterShow: Function,
+  afterList: Function,
   dialogClass: String,
   pageLayout: {
     type: String,
@@ -110,10 +112,7 @@ const props = defineProps({
   condition: Object
 })
 
-const FormType = {
-  SAVE: 'SAVE',
-  EDIT: 'EDIT'
-}
+
 
 const header = ref({
   condition: null,
@@ -284,7 +283,10 @@ const init = () => {
   }
   doList(condition)
     .then(res => {
-      const resPage = res.data
+      let resPage = res.data
+      if (props.afterList) {
+        resPage = props.afterList(resPage)
+      }
       table.value.data = resPage.records
       page.value.total = resPage.total
     })

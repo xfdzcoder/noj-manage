@@ -4,7 +4,6 @@
       <template #table="{data, save, edit, del}">
         <!-- 数据表格 -->
         <el-table :data="data" style="width: 100%">
-          <el-table-column prop="communityId" label="题圈 ID" width="120"></el-table-column>
           <el-table-column prop="identifier" label="唯一编号" width="150"></el-table-column>
           <el-table-column prop="name" label="名称" width="120"></el-table-column>
           <el-table-column prop="description" label="描述"></el-table-column>
@@ -21,9 +20,6 @@
       </template>
       <template #dialog-form="{form}">
         <el-form :model="form" label-width="120px">
-          <el-form-item label="唯一编号">
-            <el-input v-model="form.identifier"></el-input>
-          </el-form-item>
           <el-form-item label="名称">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
