@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    :default-active="$route.path + '/'"
+    :default-active="router.currentRoute.value.path"
     class="menu"
     router
   >
@@ -45,8 +45,8 @@ defineOptions({
 })
 
 const router = useRouter()
-
 const flatRoute = ref([])
+
 
 onMounted(_ => {
   flatRoute.value = router.getRoutes().filter(r => r.path === '/').pop().children

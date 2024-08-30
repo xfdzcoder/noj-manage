@@ -66,12 +66,21 @@
             :width="250"
           >
             <template #before-default="{ scope }">
-              <el-button text
+              <el-button v-if="viewData.isCodeQuestion(scope.row.questionType)"
+                         text
                          :color="'#1e1f22'"
                          :icon="Tickets"
                          @click="toTestCaseView(scope)"
               >
-                查看测试用例
+                管理测试用例
+              </el-button>
+              <el-button v-else
+                         text
+                         :color="'#1e1f22'"
+                         :icon="Tickets"
+                         @click="toAnswerView(scope)"
+                         >
+                管理答案
               </el-button>
             </template>
           </BasicOperateColumn>
@@ -167,25 +176,12 @@ definePage({
 
 const router = useRouter()
 const store = useQuestionBankStore()
-const { changeInfo } = store
+const { changeInfo, getQuestionTypeTitle } = store
 const { currentBank } = storeToRefs(store)
 
 const viewData = ref({
   questionType: (questionType) => {
-    switch (questionType) {
-      case 0:
-        return '单选题'
-      case 1:
-        return '多选题'
-      case 2:
-        return '填空题'
-      case 3:
-        return '主观题'
-      case 4:
-        return '编程题'
-      default:
-        return '未知'
-    }
+    return getQuestionTypeTitle(questionType)
   },
   difficultyType: (difficulty) => {
     switch (difficulty) {
@@ -237,6 +233,12 @@ const toTestCaseView = (scope) => {
   changeInfo(scope.row)
   router.push({
     name: 'TestCase'
+  })
+}
+const toAnswerView = (scope) => {
+  changeInfo(scope.row)
+  router.push({
+    name: 'Answer'
   })
 }
 

@@ -4,12 +4,10 @@ import { useUserInfoStore } from '@/store/userInfo.js'
 import { ElMessage } from 'element-plus'
 import { routes } from 'vue-router/auto-routes'
 
-console.dir(routes)
 const flatRoute = []
 
 const processRoute = (route) => {
   if (route.component) {
-    console.log(route)
     route.path = route.name
     // console.log(route.component())
     route.name = route.meta.name
@@ -29,7 +27,6 @@ const processRoute = (route) => {
 for (const route of routes) {
   flatRoute.push(processRoute(route))
 }
-console.log(flatRoute)
 
 const total = [
   {
@@ -75,37 +72,3 @@ router.beforeEach((to, from) => {
 })
 
 export default router
-
-/*
-,
-  {
-    path: '/dashboard',
-    component: Layout,
-    redirect: '/dashboard/index',
-    children: [
-      {
-        name: 'Dashboard',
-        path: 'index',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: {
-          title: '首页'
-        }
-      }
-    ]
-  },
-  {
-    path: '/question',
-    component: Layout,
-    redirect: '/question/bank/index',
-    children: [
-      {
-        name: 'QuestionBank',
-        path: 'bank/index',
-        component: () => import('@/views/question/bank/index.vue'),
-        meta: {
-          title: '题库管理'
-        }
-      }
-    ]
-  }
- */

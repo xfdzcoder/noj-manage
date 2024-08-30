@@ -2,7 +2,7 @@
   <div>
     <BasicManageView :base-uri="baseUri"
                      :before-show="beforeShow"
-                     pre-render-dialog
+                     :init-condition="{questionInfoId: currentInfo?.id}"
     >
       <template #header="{list}">
         <div class="info-title">
@@ -45,7 +45,6 @@
                          style="height: 250px;margin-bottom: 20px"
           />
         </el-form>
-
       </template>
     </BasicManageView>
   </div>
@@ -66,28 +65,35 @@ definePage({
   meta: {
     title: '测试用例',
     name: 'TestCase',
-    sort: 3
+    sort: 3,
+    // visible: false
   }
 })
 const router = useRouter()
 
-const { currentInfo } = storeToRefs(useQuestionBankStore())
+const store = useQuestionBankStore()
+const { isCodeQuestion } = store
+const { currentInfo } = storeToRefs(store)
 
 const beforeShow = async (mode, item) => {
-  // NOTE！！！: 需要加载两次
-
   if (mode === FormType.SAVE) {
-    item.questionInfoId = currentInfo.value.id
+    item = {
+      questionInfoId: currentInfo.value.id
+    }
   } else if (mode === FormType.EDIT) {
     delete item.questionInfoId
   }
-  return true
+  return item
 }
 
 onMounted(_ => {
   if (!currentInfo.value) {
     ElMessage.warning('请先选择题目')
     router.replace({ name: 'QuestionInfo' })
+  }
+  if (!isCodeQuestion(currentInfo.value.questionType)) {
+    ElMessage.warning('该题不是编程题')
+    router.replace({ name: 'Answer' })
   }
 })
 </script>
