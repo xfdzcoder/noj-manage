@@ -23,6 +23,7 @@ const processRoute = (route) => {
   for (let i = 0; i < children.length; i++) {
     children[i] = processRoute(children[i])
   }
+  route.children.sort((r1, r2) => r1.meta.sort - r2.meta.sort)
   return route
 }
 for (const route of routes) {

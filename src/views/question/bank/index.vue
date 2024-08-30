@@ -4,7 +4,7 @@
       <template #table="{data, save, edit, del}">
         <!-- 数据表格 -->
         <el-table :data="data" style="width: 100%">
-          <el-table-column prop="identifier" label="唯一编号" width="150"></el-table-column>
+          <el-table-column prop="identifier" label="唯一编号1" width="150"></el-table-column>
           <el-table-column prop="name" label="名称" width="120"></el-table-column>
           <el-table-column prop="description" label="描述"></el-table-column>
           <el-table-column prop="questionCount" label="题目数量" width="120"></el-table-column>
@@ -58,7 +58,7 @@
 <script setup>
 import { baseUri } from '@/api/question/bank.js'
 import { useRouter } from 'vue-router'
-import { useQuestionBankStore } from '@/store/questionBank.js'
+import { useQuestionBankStore } from '@/store/question.js'
 import { Tickets } from '@element-plus/icons-vue'
 
 defineOptions({
@@ -67,7 +67,8 @@ defineOptions({
 definePage({
   meta: {
     title: '题库管理',
-    name: 'QuestionBank'
+    name: 'QuestionBank',
+    sort: 1
   },
 })
 

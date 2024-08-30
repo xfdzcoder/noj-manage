@@ -9,13 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@devui-design/icons": "^1.4.0",
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.5",
+    "devui-theme": "^0.0.7",
     "element-plus": "^2.8.1",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^3.2.1",
     "unplugin-icons": "^0.19.2",
     "vue": "^3.4.37",
+    "vue-devui": "^1.6.21",
     "vue-router": "^4.4.3",
     "vue3-puzzle-vcode": "^1.1.7"
   },

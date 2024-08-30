@@ -12,6 +12,7 @@ declare module 'vue' {
     BasicManageView: typeof import('./components/BasicManageView/index.vue')['default']
     BasicOperateColumn: typeof import('./components/BasicManageView/components/BasicOperateColumn.vue')['default']
     BasicTable: typeof import('./components/BasicManageView/components/BasicTable.vue')['default']
+    DCodeEditor: typeof import('vue-devui/code-editor/index.es.js')['CodeEditor']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']

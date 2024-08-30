@@ -63,7 +63,18 @@
             :save="save"
             :edit="edit"
             :del="del"
-          />
+            :width="250"
+          >
+            <template #before-default="{ scope }">
+              <el-button text
+                         :color="'#1e1f22'"
+                         :icon="Tickets"
+                         @click="toTestCaseView(scope)"
+              >
+                查看测试用例
+              </el-button>
+            </template>
+          </BasicOperateColumn>
         </el-table>
       </template>
 
@@ -138,9 +149,10 @@
 <script setup>
 import { baseUri } from '@/api/question/info.js'
 import { storeToRefs } from 'pinia'
-import { useQuestionBankStore } from '@/store/questionBank.js'
+import { useQuestionBankStore } from '@/store/question.js'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { Tickets } from '@element-plus/icons-vue'
 
 defineOptions({
   name: 'QuestionInfo'
@@ -149,12 +161,14 @@ definePage({
   meta: {
     title: '题目管理',
     name: 'QuestionInfo',
-    // visible: false
+    sort: 2
   }
 })
 
 const router = useRouter()
-const { currentBank } = storeToRefs(useQuestionBankStore())
+const store = useQuestionBankStore()
+const { changeInfo } = store
+const { currentBank } = storeToRefs(store)
 
 const viewData = ref({
   questionType: (questionType) => {
@@ -219,19 +233,18 @@ const beforeEdit = (item) => {
   return true
 }
 
-// onBeforeMount(_ => {
+const toTestCaseView = (scope) => {
+  changeInfo(scope.row)
+  router.push({
+    name: 'TestCase'
+  })
+}
+
 onMounted(_ => {
   if (!currentBank.value) {
     ElMessage.warning('请先选择题库')
     router.replace({ name: 'QuestionBank' })
   }
-  // console.log('route.params.bank', route.params.bank)
-  // if (!route.params.bank) {
-  //   router.replace({ name: 'QuestionBank' })
-  //   ElMessage.warning('请先选中题库')
-  //   return
-  // }
-  // currentBank.value = JSON.parse(decodeURIComponent(route.params.bank))
 })
 </script>
 

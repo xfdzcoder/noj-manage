@@ -16,7 +16,7 @@ import './style.css'
 
 const app = createApp(App)
 
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+for (const [ key, component ] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 app.use(ElementPlus)
@@ -26,6 +26,5 @@ pinia.use(createPersistedState({
 }))
 app.use(pinia)
 app.use(router)
-
 
 app.mount('#app')

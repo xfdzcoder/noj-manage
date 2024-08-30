@@ -1,12 +1,12 @@
 <template>
   <el-menu
-    :default-active="$route.name"
+    :default-active="$route.path + '/'"
     class="menu"
     router
   >
     <template v-for="(route, index) in flatRoute">
       <el-sub-menu v-if="route.children"
-                   :index="route.name"
+                   :index="route.path"
       >
         <template #title>
           <el-icon></el-icon>
@@ -15,22 +15,22 @@
         <template #default>
           <template v-for="childRoute in route.children">
             <el-menu-item v-if="childRoute.meta.visible !== false"
-                          :index="childRoute.name"
+                          :index="childRoute.path"
             >
               <el-icon></el-icon>
               <template #title>
-                {{ childRoute.meta?.title ?? childRoute.name }}
+                {{ childRoute.meta?.title ?? childRoute.path }}
               </template>
             </el-menu-item>
           </template>
         </template>
       </el-sub-menu>
       <el-menu-item v-else
-                    :index="route.name"
+                    :index="route.path"
       >
         <el-icon></el-icon>
         <template #title>
-          {{ route.meta?.title ?? route.name }}
+          {{ route.meta?.title ?? route.path }}
         </template>
       </el-menu-item>
     </template>
