@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    :default-active="router.currentRoute.value.path"
+    :default-active="currentPath"
     class="menu"
     router
   >
@@ -47,6 +47,10 @@ defineOptions({
 const router = useRouter()
 const flatRoute = ref([])
 
+const currentPath = computed(() => {
+  const path = router.currentRoute.value.path
+  return path.endsWith('/') ? path : path + '/'
+})
 
 onMounted(_ => {
   flatRoute.value = router.getRoutes().filter(r => r.path === '/').pop().children
@@ -55,7 +59,7 @@ onMounted(_ => {
 
 <style scoped>
 .menu {
-  --el-menu-bg-color: #2b2d30;
+  --el-menu-bg-color: var(--noj-dialog-bg-color);
   --el-menu-text-color: #FFFFFF;
   --el-menu-active-color: #FFFFFF;
   --el-menu-hover-bg-color: none;

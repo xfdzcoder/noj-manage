@@ -101,4 +101,15 @@ defineOptions({
   border: none;
 }
 
+
+:global(.el-popper) {
+  --el-menu-bg-color: var(--noj-dialog-bg-color);
+  --el-menu-text-color: #FFFFFF;
+  --el-menu-active-color: #FFFFFF;
+  --el-menu-hover-bg-color: none;
+  --el-menu-border-color: var(--noj-dialog-bg-color);
+  --el-border-color-light: none;
+  border: 2px solid #43454a !important;
+}
+
 </style>

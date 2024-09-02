@@ -87,7 +87,7 @@ const goToRegister = () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #F1F1F1;
+  background-color: var(--noj-main-bg-color);
 }
 
 .login-card {
@@ -97,7 +97,7 @@ const goToRegister = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: var(--noj-dialog-bg-color);
 }
 
 .login-title {
@@ -105,6 +105,7 @@ const goToRegister = () => {
   margin-bottom: 20px;
   font-size: 2rem;
   font-weight: bold;
+  color: #FFFFFF;
 }
 
 .el-form {
