@@ -14,6 +14,7 @@
     "axios": "^1.7.5",
     "devui-theme": "^0.0.7",
     "element-plus": "^2.8.1",
+    "mitt": "^3.0.1",
     "pinia": "^2.2.2",
     "pinia-plugin-persistedstate": "^3.2.1",
     "unplugin-icons": "^0.19.2",

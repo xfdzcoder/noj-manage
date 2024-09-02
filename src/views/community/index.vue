@@ -1,14 +1,14 @@
 <script setup>
 defineOptions({
-  name: 'Question'
+  name: 'Community'
 })
 </script>
 <route lang="json">
 {
   "meta": {
-    "title": "题目模块",
+    "title": "社群模块",
     "icon": "",
-    "sort": 2,
+    "sort": 3,
     "remove": true
   }
 }

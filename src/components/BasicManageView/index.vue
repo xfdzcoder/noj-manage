@@ -59,6 +59,7 @@
 import { delById, edit, list, save } from '@/components/BasicManageView/utils/api.js'
 import { ElMessage } from 'element-plus'
 import { FormType } from '@/components/BasicManageView/utils/util.js'
+import { emitter, EventType } from '@/utils/eventBus.js'
 
 defineOptions({
   name: 'BasicManageView'
@@ -109,6 +110,10 @@ const props = defineProps({
   pagePopperClass: String,
   pageDisabled: Boolean,
   initCondition: Object,
+  refreshOnCommunityChange: {
+    type: Boolean,
+    default: false
+  }
 })
 
 
@@ -290,10 +295,22 @@ const init = () => {
     })
 }
 
+
+
 onMounted(() => {
   init()
+  if (props.refreshOnCommunityChange) {
+    emitter.on(EventType.COMMUNITY_CHANGE, () => {
+      init()
+    })
+  }
 })
 
+onBeforeUnmount(() => {
+  if (props.refreshOnCommunityChange) {
+    emitter.off(EventType.COMMUNITY_CHANGE)
+  }
+})
 
 defineExpose({
   table,

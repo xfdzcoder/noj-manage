@@ -22,6 +22,15 @@
               退出登录
             </el-menu-item>
           </el-sub-menu>
+          <el-sub-menu index="user-community">
+            <template #title> {{ currentCommunity.name }} </template>
+            <el-menu-item v-for="(community, index) in communityList"
+                          :index="`user-community-${index}`"
+                          @click="changeCommunity(community.id)"
+                          >
+              {{ community.name }}
+            </el-menu-item>
+          </el-sub-menu>
         </el-menu>
       </div>
     </el-header>
@@ -40,15 +49,19 @@
 import AsideMenu from '@/components/Layout/components/AsideMenu.vue'
 import { useUserInfoStore } from '@/store/userInfo.js'
 import { storeToRefs } from 'pinia'
+import { useCommunityInfoStore } from '@/store/community.js'
 
 defineOptions({
   name: 'Layout'
 })
 
-const store = useUserInfoStore()
-const { doLogout } = store
-const { user } = storeToRefs(store)
+const userInfoStore = useUserInfoStore()
+const { doLogout } = userInfoStore
+const { user } = storeToRefs(userInfoStore)
 
+const communityInfoStore = useCommunityInfoStore()
+const { changeCommunity } = communityInfoStore
+const { currentCommunity, communityList } = storeToRefs(communityInfoStore)
 
 </script>
 
@@ -97,7 +110,7 @@ const { user } = storeToRefs(store)
   --el-menu-hover-bg-color: none;
   --el-menu-border-color: transparent;
   border: none;
-  width: 200px;
+  width: 300px;
 }
 .top-menus .el-menu {
   flex-direction: row-reverse;

@@ -4,7 +4,7 @@ import { useUserInfoStore } from '@/store/userInfo.js'
 import { ElMessage } from 'element-plus'
 import { routes } from 'vue-router/auto-routes'
 
-const flatRoute = []
+let flatRoute = []
 
 const processRoute = (route) => {
   if (route.component) {
@@ -27,6 +27,8 @@ const processRoute = (route) => {
 for (const route of routes) {
   flatRoute.push(processRoute(route))
 }
+
+flatRoute.sort((r1, r2) => r1.meta.sort - r2.meta.sort)
 
 const total = [
   {

@@ -37,11 +37,25 @@ instance.interceptors.request.use(
   }
 )
 
+const ResponseCode = {
+  OK: '20000',
+  FAIL: '50000'
+}
 // 添加响应拦截器
 instance.interceptors.response.use(
   response => {
     // 统一处理响应数据
-    return response.data
+    const res = response.data
+    if (res.code === ResponseCode.OK) {
+      return res
+    }
+    if (res.code === ResponseCode.FAIL) {
+      ElMessage.error(res.message)
+      return Promise.reject(res)
+    }
+    console.log(res)
+    ElMessage.error('请求异常，请查看控制台日志')
+    return {}
   },
   error => {
     // 统一处理响应错误

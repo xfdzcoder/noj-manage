@@ -9,7 +9,8 @@ definePage({
   path: '/index',
   meta: {
     title: '首页',
-    name: 'Dashboard'
+    name: 'Dashboard',
+    sort: 1
   }
 })
 defineOptions({
