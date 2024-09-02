@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { change, list } from '@/api/community/info.js'
+import { change, changeDefault, list } from '@/api/community/info.js'
 import { emitter, EventType } from '@/utils/eventBus.js'
 
 export const useCommunityInfoStore = defineStore(
@@ -9,11 +9,18 @@ export const useCommunityInfoStore = defineStore(
     const communityList = ref()
     const currentCommunity = ref()
 
-    const refresh = async () => {
+    const refresh = () => {
       list()
         .then(res => {
           communityList.value = res.data.records
-          currentCommunity.value = communityList.value[0]
+        })
+    }
+
+    const init = async () => {
+      return changeDefault()
+        .then(res => {
+          currentCommunity.value = res.data
+          return Promise.resolve()
         })
     }
 
@@ -29,6 +36,7 @@ export const useCommunityInfoStore = defineStore(
       communityList,
       currentCommunity,
       changeCommunity,
+      init,
       refresh
     }
   },

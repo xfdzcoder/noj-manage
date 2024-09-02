@@ -6,6 +6,9 @@ export const change = (id) => {
   return request.get(`${baseUri}/change/${id}`)
 }
 
+export const changeDefault = () => {
+  return request.get(`${baseUri}/change`)
+}
 
 export const list = () => {
   return request.post(`${baseUri}/list`, {

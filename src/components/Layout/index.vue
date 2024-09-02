@@ -9,6 +9,8 @@
         <el-menu mode="horizontal"
                  unique-opened
                  close-on-click-outside
+                 :menu-trigger="'click'"
+                 @open="onMenuOpen"
         >
           <el-sub-menu index="user-menu">
             <template #title>{{ user.nickname }}</template>
@@ -23,7 +25,7 @@
             </el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="user-community">
-            <template #title> {{ currentCommunity.name }} </template>
+            <template #title> {{ currentCommunity?.name }} </template>
             <el-menu-item v-for="(community, index) in communityList"
                           :index="`user-community-${index}`"
                           @click="changeCommunity(community.id)"
@@ -60,8 +62,15 @@ const { doLogout } = userInfoStore
 const { user } = storeToRefs(userInfoStore)
 
 const communityInfoStore = useCommunityInfoStore()
-const { changeCommunity } = communityInfoStore
+const { changeCommunity, refresh } = communityInfoStore
 const { currentCommunity, communityList } = storeToRefs(communityInfoStore)
+
+const onMenuOpen = (index, indexPath) => {
+  console.log(index, indexPath)
+  if (index === 'user-community') {
+    refresh()
+  }
+}
 
 </script>
 

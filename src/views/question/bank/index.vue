@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BasicManageView :base-uri="baseUri">
+    <BasicManageView :base-uri="baseUri" refresh-on-community-change>
       <template #table="{data, save, edit, del}">
         <!-- 数据表格 -->
         <el-table :data="data" style="width: 100%">

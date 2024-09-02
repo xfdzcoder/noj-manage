@@ -11,18 +11,15 @@ export const useUserInfoStore = defineStore(
   () => {
     const token = ref()
     const user = ref()
-    const community = ref()
-
 
     const resolveLoginRes = (res) => {
       const data = res.data
       token.value = data.token
       user.value = data.manageUser
-      community.value = data.community
     }
 
     const isLogin = () => {
-      return token.value && user.value && community.value
+      return token.value && user.value
     }
 
     const doLogout = () => {
@@ -38,7 +35,6 @@ export const useUserInfoStore = defineStore(
     return {
       token,
       user,
-      community,
       resolveLoginRes,
       isLogin,
       doLogout

@@ -28,6 +28,7 @@ import Vcode from 'vue3-puzzle-vcode'
 import { login } from '@/api/manage-user/index.js'
 import { useUserInfoStore } from '@/store/userInfo.js'
 import { useRouter } from 'vue-router'
+import { useCommunityInfoStore } from '@/store/community.js'
 
 defineOptions({
   name: 'Login'
@@ -70,8 +71,13 @@ const onLogin = () => {
     .then(res => {
       const { resolveLoginRes } = useUserInfoStore()
       resolveLoginRes(res)
-      ElMessage.success('登录成功')
-      router.push('/')
+      const communityInfoStore = useCommunityInfoStore()
+      const { init } = communityInfoStore
+      init()
+        .then(() => {
+          ElMessage.success('登录成功')
+          router.push('/')
+        })
     })
 }
 

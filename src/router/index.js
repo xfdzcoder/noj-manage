@@ -42,7 +42,7 @@ const total = [
   {
     path: '/',
     component: Layout,
-    redirect: '/question/info',
+    redirect: '/question/bank',
     children: flatRoute
   }
 ]
