@@ -90,8 +90,7 @@ onMounted(_ => {
   if (!currentInfo.value) {
     ElMessage.warning('请先选择题目')
     router.replace({ name: 'QuestionInfo' })
-  }
-  if (!isCodeQuestion(currentInfo.value.questionType)) {
+  } else if (!isCodeQuestion(currentInfo.value.questionType)) {
     ElMessage.warning('该题不是编程题')
     router.replace({ name: 'Answer' })
   }

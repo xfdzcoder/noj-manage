@@ -3,6 +3,7 @@
     :default-active="currentPath"
     class="menu"
     router
+    unique-opened
   >
     <template v-for="(route, index) in flatRoute">
       <el-sub-menu v-if="route.children"
