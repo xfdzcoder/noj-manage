@@ -3,7 +3,7 @@
     <BasicManageView :base-uri="baseUri"
                      :before-show="beforeShow"
                      :before-save="beforeSave"
-                     :init-condition="{questionInfoId: currentInfo.id}"
+                     :init-condition="{questionInfoId: currentInfo?.id}"
     >
       <template #table="{data, save, edit, del}">
         <el-table :data="data">
