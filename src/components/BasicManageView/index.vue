@@ -32,7 +32,7 @@
     <el-dialog
       v-model="dialog.visible"
       :before-close="dialog.handleClose"
-      :class="props.dialogClass"
+      :fullscreen="fullscreen"
       :title="dialog.title"
       :width="props.dialogWidth"
     >
@@ -43,6 +43,7 @@
       </slot>
       <div class="dialog-footer">
         <slot name="dialog-footer"
+              :mode="dialog.mode"
               :submit="dialog.submit"
               :cancel="dialog.cancel"
         >
@@ -96,7 +97,10 @@ const props = defineProps({
   afterClose: Function,
   afterShow: Function,
   afterList: Function,
-  dialogClass: String,
+  fullscreen: {
+    type: Boolean,
+    default: false
+  },
   pageLayout: {
     type: String,
     default: 'total, sizes, prev, pager, next, jumper'

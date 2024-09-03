@@ -59,8 +59,33 @@ defineOptions({
   font-size: 1rem;
 }
 
+:deep(.dp-md-container) {
+  border: none;
+}
+:deep(.dp-md-container .dp-md-content-container .dp-editor-md-preview-container) {
+  --devui-base-bg: var(--noj-dialog-bg-color);
+  --devui-text: #ffffff;
+  padding: 0;
+  border-bottom-right-radius: 0;
+}
+
 :deep(.el-form-item__label) {
   color: #FFFFFF;
+}
+
+:deep(.el-descriptions__body) {
+  --el-fill-color-blank: var(--noj-dialog-bg-color);
+  --el-descriptions-item-bordered-label-background: none;
+}
+:deep(.el-descriptions__body .el-descriptions__table.is-bordered .el-descriptions__cell) {
+  border: 1px solid var(--noj-border-color);
+}
+:deep(.el-descriptions__content.el-descriptions__cell.is-bordered-content) {
+  --el-text-color-primary: #ffffff;
+}
+:deep(.el-descriptions__label.el-descriptions__cell.is-bordered-label) {
+  --el-text-color-regular: #ffffff;
+  font-weight: bold;
 }
 
 :deep(.el-select) {
