@@ -49,7 +49,7 @@
           </el-table-column>
           <BasicOperateColumn
             :del="del"
-            :width="250"
+            :width="400"
           >
             <template #before-default="{scope}">
               <el-button text
@@ -60,8 +60,14 @@
                 详情
               </el-button>
               <el-button text
-                         type="danger"
                          :color="'#1e1f22'"
+                         :icon="ChatDotSquare"
+                         @click="toCommentView(scope.row)"
+              >
+                评论管理
+              </el-button>
+              <el-button text
+                         :color="'#da0a0a'"
                          :icon="Remove"
                          @click="changeStatus(scope.row)"
               >
@@ -100,6 +106,7 @@
       <template #dialog-footer="{mode, submit, cancel}">
         <el-button v-if="mode === FormType.SAVE" type="primary" @click="submit()">OK</el-button>
         <el-button v-if="mode === FormType.SAVE" @click="cancel()">Cancel</el-button>
+        <div v-else/>
       </template>
     </BasicManageView>
   </div>
@@ -111,9 +118,11 @@ import { baseUri, getContentById, status } from '@/api/community/post-info.js'
 import { useCommunityInfoStore } from '@/store/community.js'
 import { storeToRefs } from 'pinia'
 import { FormType } from '@/components/BasicManageView/utils/util.js'
-import { Remove, Tickets } from '@element-plus/icons-vue'
+import { ChatDotSquare, Remove, Tickets } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { emitter, EventType } from '@/utils/eventBus.js'
+import { useRouter } from 'vue-router'
+import { usePostInfoStore } from '@/store/post.js'
 
 defineOptions({
   name: 'CommunityPost'
@@ -126,7 +135,9 @@ definePage({
   }
 })
 
+const router = useRouter()
 const store = useCommunityInfoStore()
+const { changePost } = usePostInfoStore()
 const { currentCommunity } = storeToRefs(store)
 
 const viewData = {
@@ -154,6 +165,13 @@ const viewData = {
         return '-'
     }
   }
+}
+
+const toCommentView = (item) => {
+  changePost(item)
+  router.push({
+    name: 'CommunityPostComment'
+  })
 }
 
 const changeStatus = (item) => {

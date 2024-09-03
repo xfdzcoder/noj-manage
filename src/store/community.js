@@ -27,6 +27,7 @@ export const useCommunityInfoStore = defineStore(
     const changeCommunity = (id) => {
       change(id)
         .then(res => {
+          // TODO 2024/9/3 14:59 on dev-xfdzcoder: 还要通知questionStore更新
           emitter.emit(EventType.REFRESH_TABLE)
           currentCommunity.value = res.data
         })
