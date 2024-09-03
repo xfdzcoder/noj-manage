@@ -49,7 +49,7 @@
           </el-table-column>
           <BasicOperateColumn
             :del="del"
-            :width="180"
+            :width="250"
           >
             <template #before-default="{scope}">
               <el-button text
@@ -58,6 +58,14 @@
                          @click="edit(scope.row)"
               >
                 详情
+              </el-button>
+              <el-button text
+                         type="danger"
+                         :color="'#1e1f22'"
+                         :icon="Remove"
+                         @click="changeStatus(scope.row)"
+              >
+                {{ scope.row.status === 2 ? '解封' : '封禁' }}
               </el-button>
             </template>
           </BasicOperateColumn>
@@ -99,11 +107,13 @@
 
 <script setup>
 import { definePage } from 'unplugin-vue-router/runtime'
-import { baseUri, getContentById } from '@/api/community/post-info.js'
+import { baseUri, getContentById, status } from '@/api/community/post-info.js'
 import { useCommunityInfoStore } from '@/store/community.js'
 import { storeToRefs } from 'pinia'
 import { FormType } from '@/components/BasicManageView/utils/util.js'
-import { Tickets } from '@element-plus/icons-vue'
+import { Remove, Tickets } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+import { emitter, EventType } from '@/utils/eventBus.js'
 
 defineOptions({
   name: 'CommunityPost'
@@ -144,6 +154,14 @@ const viewData = {
         return '-'
     }
   }
+}
+
+const changeStatus = (item) => {
+  status(item.id, item.status === 2 ? 1 : 2)
+    .then(res => {
+      emitter.emit(EventType.REFRESH_TABLE)
+      ElMessage.success('禁用成功')
+    })
 }
 
 const afterList = (respPage) => {

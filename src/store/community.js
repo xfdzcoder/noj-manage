@@ -27,7 +27,7 @@ export const useCommunityInfoStore = defineStore(
     const changeCommunity = (id) => {
       change(id)
         .then(res => {
-          emitter.emit(EventType.COMMUNITY_CHANGE)
+          emitter.emit(EventType.REFRESH_TABLE)
           currentCommunity.value = res.data
         })
     }

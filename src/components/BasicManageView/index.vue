@@ -113,11 +113,7 @@ const props = defineProps({
   },
   pagePopperClass: String,
   pageDisabled: Boolean,
-  initCondition: Object,
-  refreshOnCommunityChange: {
-    type: Boolean,
-    default: false
-  }
+  initCondition: Object
 })
 
 
@@ -300,20 +296,15 @@ const init = () => {
 }
 
 
-
 onMounted(() => {
   init()
-  if (props.refreshOnCommunityChange) {
-    emitter.on(EventType.COMMUNITY_CHANGE, () => {
-      init()
-    })
-  }
+  emitter.on(EventType.REFRESH_TABLE, () => {
+    init()
+  })
 })
 
 onBeforeUnmount(() => {
-  if (props.refreshOnCommunityChange) {
-    emitter.off(EventType.COMMUNITY_CHANGE)
-  }
+  emitter.off(EventType.REFRESH_TABLE)
 })
 
 defineExpose({
@@ -334,14 +325,17 @@ defineExpose({
   display: flex;
   justify-content: flex-end;
 }
+
 .dialog-footer .el-button {
   width: 80px;
   font-family: "Microsoft YaHei", serif;
 }
+
 :deep(.dialog-footer .el-button:first-child) {
   --el-button-bg-color: #3574f0;
   font-weight: bold;
 }
+
 :deep(.dialog-footer .el-button:last-child) {
   --el-button-bg-color: none;
   --el-button-border-color: var(--noj-border-color);
