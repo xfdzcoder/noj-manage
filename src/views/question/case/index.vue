@@ -2,6 +2,7 @@
   <div>
     <BasicManageView :base-uri="baseUri"
                      :before-show="beforeShow"
+                     :before-save="beforeSave"
                      :init-condition="{questionInfoId: currentInfo?.id}"
     >
       <template #header="{list}">
@@ -11,10 +12,10 @@
         </div>
       </template>
       <template #table="{data, save, edit, del}">
-        <el-table :data="data" stripe>
+        <el-table :data="data">
           <el-table-column prop="sort" width="50" label="排序" />
           <el-table-column prop="input" label="输入" />
-          <el-table-column prop="output" label="期望输入" />
+          <el-table-column prop="output" label="期望输出" />
           <BasicOperateColumn
             :save="save"
             :edit="edit"
@@ -29,7 +30,7 @@
             <el-input-number v-model="form.sort" />
           </el-form-item>
           <el-form-item label="输入参数" />
-          <d-code-editor v-model="form.input"
+          <code-editor v-model="form.input"
                          :options="{
                             language: 'json'
                          }"
@@ -37,7 +38,7 @@
                          style="height: 250px"
           />
           <el-form-item label="期望输出" />
-          <d-code-editor v-model="form.output"
+          <code-editor v-model="form.output"
                          :options="{
             language: 'json'
                          }"
@@ -57,6 +58,7 @@ import { useQuestionBankStore } from '@/store/question.js'
 import { storeToRefs } from 'pinia'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { CodeEditor } from 'vue-devui'
 
 defineOptions({
   name: 'TestCase'
@@ -77,13 +79,17 @@ const { currentInfo } = storeToRefs(store)
 
 const beforeShow = async (mode, item) => {
   if (mode === FormType.SAVE) {
-    item = {
-      questionInfoId: currentInfo.value.id
-    }
+    item.questionInfoId = currentInfo.value.id
   } else if (mode === FormType.EDIT) {
     delete item.questionInfoId
   }
   return item
+}
+
+const beforeSave = (form) => {
+  form.input = form.input.replace('\r\n', '\n')
+  form.output = form.output.replace('\r\n', '\n')
+  return true
 }
 
 onMounted(_ => {

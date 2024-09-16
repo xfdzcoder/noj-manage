@@ -14,7 +14,7 @@
       </template>
       <template #table="{data, save, edit, del}">
         <!-- Question Info Table -->
-        <el-table :data="data" stripe style="width: 100%">
+        <el-table :data="data" style="width: 100%">
           <el-table-column prop="questionType" label="题目类型">
             <template #default="scope">
               {{ viewData.questionType(scope.row.questionType) }}

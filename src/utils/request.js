@@ -19,7 +19,7 @@ instance.interceptors.request.use(
     // 修改请求之前的配置
     const { isLogin, token } = useUserInfoStore()
     if (isLogin()) {
-      config.headers.set('satoken', token)
+      config.headers.set('Authorization', token)
       return config
     }
     console.log('request config: ', config)

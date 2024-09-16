@@ -5,7 +5,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import VueRouter from 'unplugin-vue-router/vite'
-import { DevUiResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'node:path'
 
 const pathSrc = path.resolve(__dirname, 'src')
@@ -63,7 +63,7 @@ export default defineConfig({
         // 自动导入 Element Plus 组件
         ElementPlusResolver(),
         // 自动注册 DevUI 组件
-        DevUiResolver()
+        // DevUiResolver()
       ],
 
       dts: path.resolve(pathSrc, 'components.d.ts')

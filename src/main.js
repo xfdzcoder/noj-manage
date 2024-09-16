@@ -11,8 +11,14 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 // Router
 import router from '@/router/index.js'
 
+import DevUI from 'vue-devui'
+import 'vue-devui/style.css'
+import '@devui-design/icons/icomoon/devui-icon.css'
+import { infinityTheme, ThemeServiceInit } from 'devui-theme'
 // 最后导入
 import './style.css'
+
+ThemeServiceInit({ infinityTheme }, 'infinityTheme')
 
 const app = createApp(App)
 
@@ -26,5 +32,6 @@ pinia.use(createPersistedState({
 }))
 app.use(pinia)
 app.use(router)
+app.use(DevUI)
 
 app.mount('#app')

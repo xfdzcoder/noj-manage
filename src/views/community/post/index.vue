@@ -89,7 +89,7 @@
             label="内容"
             :span="3">
 
-            <d-editor-md
+            <editor-md
               style="height: 100%"
               v-model="form.content"
               :mode="'readonly'"
@@ -99,7 +99,7 @@
                 },
               }"
               :toolbar-config="[]"
-            ></d-editor-md>
+            ></editor-md>
           </el-descriptions-item>
         </el-descriptions>
       </template>
@@ -123,6 +123,7 @@ import { ElMessage } from 'element-plus'
 import { emitter, EventType } from '@/utils/eventBus.js'
 import { useRouter } from 'vue-router'
 import { usePostInfoStore } from '@/store/post.js'
+import { EditorMd } from 'vue-devui'
 
 defineOptions({
   name: 'CommunityPost'

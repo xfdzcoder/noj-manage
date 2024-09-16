@@ -119,7 +119,7 @@ const onMenuOpen = (index, indexPath) => {
   --el-menu-hover-bg-color: none;
   --el-menu-border-color: transparent;
   border: none;
-  width: 300px;
+  width: 500px;
 }
 .top-menus .el-menu {
   flex-direction: row-reverse;
