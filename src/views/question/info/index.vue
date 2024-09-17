@@ -22,7 +22,7 @@
           </el-table-column>
           <el-table-column prop="groupName" label="分组名称" />
           <el-table-column prop="title" label="一句话名称" />
-          <el-table-column prop="description" label="题目描述" />
+<!--          <el-table-column prop="description" label="题目描述" />-->
           <el-table-column prop="tags" label="题目标签">
             <template #default="scope">
               <el-tag v-for="tag in scope.row.tags" type="info" style="margin-right: 5px">{{ tag }}</el-tag>
