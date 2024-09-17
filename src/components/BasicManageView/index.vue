@@ -1,14 +1,17 @@
 <template>
   <div class="page">
     <slot name="header"
+          :header-ref="(ref) => headerRef = ref"
           :list="header.list"
     />
 
     <slot name="table"
+          :table-ref="(ref) => tableRef = ref"
           :data="table.data"
           :del="del"
           :edit="table.showEdit"
           :save="table.showSave"
+          :height="tableHeight"
     />
 
     <slot name="page">
@@ -300,6 +303,34 @@ const init = () => {
 }
 
 
+// 动态计算表格高度
+const headerRef = ref()
+const tableRef = ref()
+const tableHeight = computed(() => {
+  // nextTick(() => {
+    const headerHeight = headerRef.value?.offsetHeight;
+    const headerWidth = headerRef.value?.offsetWidth;
+    const tableHeight = tableRef.value?.offsetHeight;
+    const tableWidth = tableRef.value?.offsetWidth;
+    console.log('headerRef Height:', headerHeight);
+    console.log('headerRef Width:', headerWidth);
+    console.log('tableRef Height:', tableHeight);
+    console.log('tableRef Width:', tableWidth);
+  // })
+  const pixels = viewportToPixels('93vh')
+  console.log(pixels)
+  const height = (pixels - headerHeight - 80) + 'px'
+  console.log(height)
+  return height
+})
+const viewportToPixels = (value) => {
+  const parts = value.match(/([0-9\.]+)(vh|vw)/)
+  const q = Number(parts[1])
+  const side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
+  return side * (q/100).toFixed(2)
+}
+
+
 onMounted(() => {
   init()
   emitter.on(EventType.REFRESH_TABLE, () => {
@@ -321,6 +352,10 @@ defineExpose({
 </script>
 
 <style scoped>
+.page {
+  overflow: hidden;
+}
+
 :deep(.el-dialog__title) {
   color: #ffffff;
 }

@@ -1,20 +1,20 @@
 <template>
-  <div>
+  <div class="container">
     <BasicManageView :base-uri="baseUri"
                      :before-save="beforeSave"
                      :before-edit="beforeEdit"
                      :after-list="afterList"
                      :init-condition="{bankId: currentBank?.id}"
     >
-      <template #header="{list}">
-        <div class="bank-title">
+      <template #header="{list, headerRef}">
+        <div class="bank-title" :ref="headerRef">
           题库：{{ currentBank?.name }}
           <hr>
         </div>
       </template>
-      <template #table="{data, save, edit, del}">
+      <template #table="{data, save, edit, del, height, tableRef}">
         <!-- Question Info Table -->
-        <el-table :data="data" style="width: 100%">
+        <el-table :data="data" style="width: 100%" :height="height" :ref="tableRef">
           <el-table-column prop="questionType" label="题目类型">
             <template #default="scope">
               {{ viewData.questionType(scope.row.questionType) }}
@@ -108,7 +108,16 @@
             <el-input v-model="form.title" />
           </el-form-item>
           <el-form-item label="题目描述">
-            <el-input v-model="form.description" type="textarea" />
+<!--            <el-input v-model="form.description" type="textarea" />-->
+            <editor-md
+              style="height: 100%"
+              v-model="form.description"
+              :md-rules="{
+                linkify: {
+                  fuzzyLink: false,
+                },
+              }"
+            />
           </el-form-item>
           <el-form-item label="题目标签">
             <el-select
@@ -162,6 +171,7 @@ import { useQuestionBankStore } from '@/store/question.js'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { Tickets } from '@element-plus/icons-vue'
+import { EditorMd } from 'vue-devui'
 
 defineOptions({
   name: 'QuestionInfo'
@@ -256,5 +266,27 @@ onMounted(_ => {
   font-size: 1.5rem;
   font-family: "Microsoft YaHei UI", serif;
   font-weight: bold;
+}
+
+:deep(.dp-md-container) {
+  --devui-base-bg: var(--noj-dialog-bg-color);
+  --devui-text: #FFFFFF;
+  color: #FFFFFF;
+}
+:deep(.CodeMirror) {
+  background-color: var(--noj-dialog-bg-color);
+  color: #FFFFFF;
+}
+:deep(.dp-md-container .CodeMirror-lines) {
+  padding: 0;
+}
+:deep(.dp-md-container .dp-md-content-container .dp-editor-md-preview-container) {
+  padding: 5px;
+}
+:deep(.CodeMirror-cursor) {
+  border: 1px solid #FFFFFF;
+}
+:deep(.cm-s-default *) {
+  color: #FFFFFF;
 }
 </style>

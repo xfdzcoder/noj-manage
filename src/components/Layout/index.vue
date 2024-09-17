@@ -77,7 +77,8 @@ const onMenuOpen = (index, indexPath) => {
 <style scoped>
 .page {
   height: 100vh;
-  width: 100vw;
+  width: 99vw;
+  overflow: hidden;
 }
 
 .header {
@@ -87,6 +88,7 @@ const onMenuOpen = (index, indexPath) => {
   flex-wrap: nowrap;
   padding: 0 0 0 20px;
   justify-content: space-between;
+  height: 6vh;
 }
 
 .title {
@@ -110,6 +112,7 @@ const onMenuOpen = (index, indexPath) => {
 
 .main {
   background-color: #1e1f22;
+  height: 94vh;
 }
 
 .top-menus {
