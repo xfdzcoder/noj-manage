@@ -4,7 +4,7 @@
       :base-uri="baseUri"
       :init-condition="{
         rootId: currentRootComment?.id,
-        postInfoId: currentPost.id
+        postInfoId: currentPost?.id
       }"
     >
       <template #header="{list}">
@@ -14,7 +14,7 @@
             {{ currentRootComment.content }}
           </div>
           <div v-else>
-            {{ currentPost.title }}
+            {{ currentPost?.title }}
           </div>
         </div>
       </template>
@@ -85,7 +85,7 @@ const showRoot = () => {
 
 
 
-onMounted(_ => {
+onMounted(() => {
   if (!currentPost.value) {
     ElMessage.warning('请先选择帖子')
     router.replace({ name: 'CommunityPost' })
