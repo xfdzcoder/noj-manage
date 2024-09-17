@@ -309,13 +309,6 @@ const tableRef = ref()
 const tableHeight = computed(() => {
   // nextTick(() => {
     const headerHeight = headerRef.value?.offsetHeight;
-    const headerWidth = headerRef.value?.offsetWidth;
-    const tableHeight = tableRef.value?.offsetHeight;
-    const tableWidth = tableRef.value?.offsetWidth;
-    console.log('headerRef Height:', headerHeight);
-    console.log('headerRef Width:', headerWidth);
-    console.log('tableRef Height:', tableHeight);
-    console.log('tableRef Width:', tableWidth);
   // })
   const pixels = viewportToPixels('93vh')
   console.log(pixels)

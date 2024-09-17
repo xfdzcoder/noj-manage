@@ -81,7 +81,9 @@ definePage({
 })
 
 const router = useRouter()
-const { currentInfo } = storeToRefs(useQuestionBankStore())
+const questionBankStore = useQuestionBankStore()
+const { isCodeQuestion } = questionBankStore
+const { currentInfo } = storeToRefs(questionBankStore)
 
 
 const resolveOptionIdentifier = (option) => {
@@ -119,6 +121,11 @@ onMounted(_ => {
   if (!currentInfo.value) {
     ElMessage.warning('请先选择题目')
     router.replace({ name: 'QuestionInfo' })
+    return
+  }
+  if (isCodeQuestion(currentInfo.value.questionType)) {
+    ElMessage.warning('编程题不支持答案管理，请直接管理测试用例')
+    router.replace({ name: 'TestCase' })
   }
 })
 </script>
