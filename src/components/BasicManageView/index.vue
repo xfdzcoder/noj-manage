@@ -148,13 +148,14 @@ const dialog = ref({
       if (!props.beforeShow(mode, item)) {
         return
       }
+      dialog.value.form = item
     }
     if (mode === FormType.SAVE) {
       dialog.value.title = props.saveTitle
     } else if (mode === FormType.EDIT) {
       dialog.value.title = props.editTitle
+      dialog.value.form = item
     }
-    dialog.value.form = item
     dialog.value.mode = mode
     dialog.value.visible = true
     if (props.afterShow) {
